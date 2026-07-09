@@ -1,25 +1,13 @@
-#!/bin/bash
-hyprctl notify 5 5000 "rgb(00FF00)" "initializing new wallpapers..."
-# wait for hyprpaper IPC
-until hyprctl hyprpaper listloaded >/dev/null 2>&1; do
-  sleep 0.2
-done
+#!/usr/bin/bash
 
-# clear previous wallpapers (IMPORTANT)
-hyprctl hyprpaper unload all
+wallpapers=$(ls ~/.live_wallpaper/ | shuf| tr "\n" " ")
 
-MONITORS=$(hyprctl monitors | awk '/^Monitor/ {print $2}')
+wp1=$(echo $wallpapers | awk '{print $1}')
+wp2=$(echo $wallpapers | awk '{print $2}')
+wp3=$(echo $wallpapers | awk '{print $3}')
 
-for M in $MONITORS; do
-  SAFE_M=$(echo "$M" | tr -cd 'A-Za-z0-9_-')
+mpvpaper --fork -o "no-audio --cache=yes --demuxer-max-bytes=10MiB --hwdec=auto loop panscan=1.0" 'Chimei Innolux Corporation 0x1621 ' "~/.live_wallpaper/$wp1"
+mpvpaper --fork DP-1 -o "no-audio --cache=yes --demuxer-max-bytes=10MiB --hwdec=auto loop" "~/.live_wallpaper/$wp2"
+mpvpaper --fork HDMI-A-1 -o "no-audio --cache=yes --demuxer-max-bytes=10MiB --hwdec=auto loop" "~/.live_wallpaper/$wp3"
 
-  URL=$(curl -s "https://wallhaven.cc/api/v1/search?q=obito&sorting=random" \
-    | jq -r '.data[0].path')
-
-  FILE="$HOME/.cache/wallhaven-$SAFE_M.jpg"
-  curl -s "$URL" -o "$FILE"
-
-  hyprctl hyprpaper preload "$FILE"
-  hyprctl hyprpaper wallpaper "$M,$FILE"
-done
 
