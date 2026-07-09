@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-wallpapers=$(ls ~/.live_wallpaper/ | shuf| tr "\n" " ")
+wallpapers=$(ls ~/.live_wallpaper/ | shuf| shuf|tr "\n" " ")
 
 wp1=$(echo $wallpapers | awk '{print $1}')
 wp2=$(echo $wallpapers | awk '{print $2}')
