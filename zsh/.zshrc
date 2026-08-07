@@ -1,3 +1,5 @@
+# ZSH_AUTOSUGGEST_STRATEGY=(history)
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # ~/.zshrc file for zsh interactive shells.
 # see /usr/share/doc/zsh/examples/zshrc for examples
 
@@ -298,8 +300,9 @@ export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools:/opt/zen
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export PATH=/home/knownblackhat/.cargo/bin:$PATH
 # opencode
 export PATH=/home/knownblackhat/.opencode/bin:$PATH
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-
+eval "$(zoxide init zsh)"

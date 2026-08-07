@@ -32,20 +32,21 @@ return {
 		require("mason-lspconfig").setup({
 			ensure_installed = {
 				"lua_ls",
-				"rust_analyzer",
 				"vtsls",
 				"tailwindcss",
 				-- 'tsserver',
-				"rust_analyzer",
+				-- "rust_analyzer",
 				"pylsp",
 				"pyright",
 			},
+            automatic_enable = {exclude = {"rust_analyzer"}},
 			handlers = {
 				function(server_name) -- default handler (optional)
 					require("lspconfig")[server_name].setup({
 						capabilities = capabilities,
 					})
 				end,
+
 
 				zls = function()
 					local lspconfig = require("lspconfig")
@@ -81,6 +82,8 @@ return {
 						},
 					})
 				end,
+
+
 				["tailwindcss"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.tailwindcss.setup({
